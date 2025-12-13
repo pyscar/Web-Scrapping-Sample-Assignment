@@ -1,0 +1,17 @@
+
+**ADB Project Scraper Demo – Submission Summary**
+
+This project demonstrates a web scraping workflow for the Asian Development Bank (ADB) projects portal using local HTML files. Due to access restrictions on the live site (HTTP 403 errors), the scraper operates in **demo mode**, simulating multiple listing pages and corresponding project detail pages.
+
+Key features demonstrated:
+
+* Extraction of **project title, country, sector, status, approval date, amount, executing agency, and description**.
+* Handling of **pagination** across multiple listing pages.
+* Safe handling of **missing or malformed fields**.
+* Output in **structured JSON and CSV formats** for analysis or reporting.
+* Clear, maintainable, and modular code structure.
+
+This demo faithfully represents how the scraper would function on the live site, demonstrating **scraping logic, data consolidation, and professional output formatting** without making live HTTP requests.
+
+---
+

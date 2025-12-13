@@ -1,0 +1,50 @@
+[
+    {
+        "project_id": "project-001",
+        "title": "Project Alpha",
+        "url": "https://www.adb.org/projects/project-001",
+        "country": "Country A",
+        "sector": "Sector X",
+        "status": "Active",
+        "approval_date": "2025-01-01",
+        "amount": "$10,000,000",
+        "executing_agency": "Agency ABC",
+        "description": "This is a sample project description."
+    },
+    {
+        "project_id": "project-002",
+        "title": "Project Beta",
+        "url": "https://www.adb.org/projects/project-002",
+        "country": "Country C",
+        "sector": "Sector Z",
+        "status": "Planned",
+        "approval_date": "2025-03-01",
+        "amount": "$5,000,000",
+        "executing_agency": "Agency XYZ",
+        "description": "Gamma project description here."
+    },
+    {
+        "project_id": "project-003",
+        "title": "Project Gamma",
+        "url": "https://www.adb.org/projects/project-003",
+        "country": "Country H",
+        "sector": "Sector D",
+        "status": "Planned",
+        "approval_date": "2025-05-15",
+        "amount": "$9,500,000",
+        "executing_agency": "Agency UVW",
+        "description": "Theta project description."
+    },
+    {
+        "project_id": "project-004",
+        "title": "Project Delta",
+        "url": "https://www.adb.org/projects/project-004",
+        "country": "Country G",
+        "sector": "Sector C",
+        "status": "Active",
+        "approval_date": "2025-05-01",
+        "amount": "$7,000,000",
+        "executing_agency": "Agency RST",
+        "description": "Eta project description."
+    }
+]

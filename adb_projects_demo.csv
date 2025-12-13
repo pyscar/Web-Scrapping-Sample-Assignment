@@ -1,0 +1,5 @@
+project_id,title,url,country,sector,status,approval_date,amount,executing_agency,description
+project-001,Project Alpha,https://www.adb.org/projects/project-001,Country A,Sector X,Active,2025-01-01,"$10,000,000",Agency ABC,This is a sample project description.
+project-002,Project Beta,https://www.adb.org/projects/project-002,Country C,Sector Z,Planned,2025-03-01,"$5,000,000",Agency XYZ,Gamma project description here.
+project-003,Project Gamma,https://www.adb.org/projects/project-003,Country H,Sector D,Planned,2025-05-15,"$9,500,000",Agency UVW,Theta project description.
+project-004,Project Delta,https://www.adb.org/projects/project-004,Country G,Sector C,Active,2025-05-01,"$7,000,000",Agency RST,Eta project description.
