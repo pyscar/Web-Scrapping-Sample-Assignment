@@ -1,94 +1,122 @@
-# ADB Project Scraper (Demo)
+# ADB Web Scraper 🏦
 
-## Overview
+[![Python](https://img.shields.io/badge/python-3.13-blue)](https://www.python.org/)
+[![Playwright](https://img.shields.io/badge/playwright-1.40-orange)](https://playwright.dev/)
+[![License](https://img.shields.io/badge/license-educational-lightgrey)](LICENSE)
 
-This project demonstrates a web scraping workflow for the Asian Development Bank (ADB) projects portal.
-Due to access restrictions on the live site, this demo uses **local HTML files** to simulate scraping and data extraction.
-
-The scraper extracts:
-
-* Project title, country, sector
-* Status, approval date, amount, executing agency
-* Description from each project’s detail page
-
-Output is a **structured JSON file** suitable for analysis or reporting.
+A modular Python web scraper to extract **Projects, Documents, and Tenders** from the [Asian Development Bank (ADB)](https://www.adb.org/) website. Built with **Playwright**, it supports multi-page scraping, Cloudflare detection, and CSV export.
 
 ---
 
-## Folder Structure
+## 🗂 Project Structure
 
 ```
-adb-project-scrapper/
+adb_scraper/
 │
-├── scraper/
-│   ├── __init__.py
-│   ├── http_client.py        # Fetches pages (demo version uses local HTML)
-│   ├── listing_parser.py     # Parses listing pages
-│   ├── detail_parser.py      # Parses project detail pages
-│   └── scraper.py            # Orchestrates pagination and scraping
+├── scraper/ 
+│   ├── projects.py       # Scraper for Projects
+│   ├── documents.py      # Scraper for Documents
+│   ├── tenders.py        # Scraper for Tenders
 │
-├── models.py                 # Project dataclass
-├── utils.py                  # Helper functions (e.g., safe_text)
-├── main.py                   # Entry point to run the demo
-├── README.md
-├── listing_page_1.html
-├── listing_page_2.html
-├── listing_page_3.html
-├── listing_page_4.html
-├── project_detail_001.html
-├── project_detail_002.html
-├── project_detail_003.html
-├── project_detail_004.html
-└── adb_projects_demo.json    # Output JSON
+├── models/
+│   ├── project_model.py
+│   ├── document_model.py
+│   ├── tender_model.py
+│
+├── utils/
+│   ├── browser.py        # Browser launch helper
+│   ├── pagination.py     # Pagination helper
+│   ├── csv_writer.py     # CSV saving functions
+│
+└── main.py               # Entry point to run all scrapers
 ```
 
 ---
 
-## Demo Mode
+## ✨ Features
 
-* Uses **local HTML files** (`listing_page_X.html` and `project_detail_XXX.html`) instead of live HTTP requests.
-* Simulates **pagination** across multiple listing pages.
-* Matches each project from a listing page with its **detail page** for complete data extraction.
+* **Modular Scrapers**: Separate scrapers for Projects, Documents, and Tenders.
+* **Multi-page Support**: Handles pagination via helper functions.
+* **Protection Detection**: Stops automatically if Cloudflare or other protection pages appear.
+* **CSV Export**: Saves scraped data in clean CSV files.
+* **Configurable Browser**: Supports headless mode and slow-motion navigation for debugging.
 
 ---
 
-## How to Run
+## ⚡ Installation
 
-1. Activate your Python virtual environment in VS Code:
+1. Clone the repository:
 
 ```bash
-.\.venv\Scripts\activate.ps1
+git clone <your-repo-url>
+cd adb_scraper
 ```
 
-2. Run the scraper demo:
+2. Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+```
+
+3. Install dependencies and browsers:
+
+```bash
+pip install playwright
+playwright install
+```
+
+---
+
+## 🚀 Usage
+
+Run the main scraper:
 
 ```bash
 python main.py
 ```
 
-3. After completion, the **JSON output** will be saved as:
+The script will:
 
-```
-adb_projects_demo.json
-```
-
----
-
-## Features
-
-* **Structured extraction**: Consolidates listing + detail page data into a `Project` dataclass.
-* **Pagination ready**: Supports multiple listing pages.
-* **Edge case handling**: Skips missing or malformed pages without crashing.
-* **Polite demo delays**: Small pauses to simulate real scraping.
-* **Professional JSON output**: Each project is saved with all available fields.
+1. Launch a browser.
+2. Scrape **Projects** → save `projects.csv`.
+3. Scrape **Documents** → save `documents.csv`.
+4. Scrape **Tenders** → save `tenders.csv`.
+5. Close the browser automatically.
 
 ---
 
-## Notes
+## ⚙️ Configuration
 
-* This is a **demo for assignment purposes**; no live requests are made to ADB.
-* To extend for live scraping, replace `fetch_page_demo` with `fetch_page` and handle **HTTP headers** to avoid 403 errors.
-* Assignment Explanation: This project demonstrates the logic and structure of scraping ADB project data while complying with the assignment requirements. Due to access restrictions on the live ADB website (HTTP 403 errors), the scraper uses **local HTML files** to simulate the listing pages and individual project detail pages. This approach allows for full demonstration of pagination, extraction of structured project fields, handling of missing data, and consolidation into a JSON output. The demo faithfully represents how the scraper would operate on the live site, highlighting coding skills, maintainability, and clarity of scraping logic without making live HTTP requests.
+* **Headless Mode**: Set `headless=True/False` in `launch_browser()`.
+* **Slow Motion**: Adjust `slow_mo` in `launch_browser()` to slow down interactions.
+* **Page Limit**: Control the number of pages scraped via `max_pages` in each scraper.
 
 ---
 
+## 📄 Example CSV Output
+
+**Projects**: `title, country, sector, status, approval_year, project_id, project_url`
+**Documents**: `title, project_id, region, document_type, upload_date, document_url`
+**Tenders**: `title, tender_url, project_id, region, sector, posting_date, status, notice_type`
+
+---
+
+## ⚠️ Notes
+
+* This project demonstrates **scraping logic, structure, and handling of pagination/protection**.
+* Running the scraper on ADB may trigger **Cloudflare protection**, which stops scraping automatically.
+* CSV files are saved in the project root directory.
+
+---
+
+## 📜 License
+
+Educational use only. Use responsibly and comply with website terms of service.
+
+
+
+Do you want me to make that version too?
