@@ -1,32 +1,59 @@
-import json
-import csv
-from scraper.scraper import scrape_projects_demo
+from time import sleep
+from Scraper.projects import scrape_projects
+from Scraper.documents import scrape_documents
+from Scraper.tenders import scrape_tenders
+from utils.csv_writer import save_projects_to_csv, save_documents_to_csv, save_tenders_to_csv
+from utils.browser import launch_browser  
 
-def main():
-    print("Starting ADB project scraping demo...")
+# --- URLs for scraping ---
+PROJECTS_URL = "https://www.adb.org/projects"
+DOCUMENTS_URL = "https://www.adb.org/projects/documents"
+TENDERS_URL = "https://www.adb.org/projects/tenders"
 
-    projects = scrape_projects_demo()
-    if not projects:
-        print("No projects were scraped. Exiting.")
-        return
+# --- Launch browser ---
+browser, page, playwright = launch_browser(headless=False, slow_mo=800)
 
-    # Convert dataclass objects to dictionaries
-    projects_data = [project.__dict__ for project in projects]
+try:
+    # -------------------------
+    # Scrape Projects
+    # -------------------------
+    print("Scraping Projects...")
+    projects = scrape_projects(page, PROJECTS_URL, max_pages=1)  # max_pages can be adjusted
+    save_projects_to_csv(projects, "projects.csv")
+    print(f"✅ Projects saved: {len(projects)}")
 
-    # Save JSON
-    json_file = "adb_projects_demo.json"
-    with open(json_file, "w", encoding="utf-8") as f:
-        json.dump(projects_data, f, ensure_ascii=False, indent=4)
-    print(f"Demo scraping completed. {len(projects)} projects saved to {json_file}")
+    # -------------------------
+    # Wait before next scrape
+    # -------------------------
+    print("⏱ Waiting 5 seconds before scraping Documents...")
+    sleep(5)
 
-    # Save CSV
-    csv_file = "adb_projects_demo.csv"
-    with open(csv_file, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=projects_data[0].keys())
-        writer.writeheader()
-        writer.writerows(projects_data)
-    print(f"CSV file also saved as {csv_file}")
+    # -------------------------
+    # Scrape Documents
+    # -------------------------
+    print("Scraping Documents...")
+    documents = scrape_documents(page, DOCUMENTS_URL, max_pages=1)
+    save_documents_to_csv(documents, "documents.csv")
+    print(f"✅ Documents saved: {len(documents)}")
 
+    # -------------------------
+    # Wait before next scrape
+    # -------------------------
+    print("⏱ Waiting 5 seconds before scraping Tenders...")
+    sleep(5)
 
-if __name__ == "__main__":
-    main()
+    # -------------------------
+    # Scrape Tenders
+    # -------------------------
+    print("Scraping Tenders...")
+    tenders = scrape_tenders(page, TENDERS_URL, max_pages=1)
+    save_tenders_to_csv(tenders, "tenders.csv")
+    print(f"✅ Tenders saved: {len(tenders)}")
+
+finally:
+    # -------------------------
+    # Close browser and stop playwright
+    # -------------------------
+    browser.close()
+    playwright.stop()
+
